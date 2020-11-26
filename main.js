@@ -7,7 +7,6 @@ function isNumber(n){
 function game(){
 
     const randNum = Math.floor(Math.random() * 100 + 1);
-    console.log(randNum);
 
     function guessNumber() {
         let yourNum = prompt('Угадай число от 1 до 100');
@@ -33,7 +32,6 @@ function game(){
         }
     }
     guessNumber();
-console.dir(guessNumber);
 
 }
 
