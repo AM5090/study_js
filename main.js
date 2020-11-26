@@ -4,30 +4,37 @@ function isNumber(n){
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-const randNum = Math.floor(Math.random() * 100 + 1);
+function game(){
 
-function guessNumber(rand) {
-    let yourNum = prompt('Угадай число от 1 до 100');
-    
-    if(yourNum === null){
-        alert('Игра окончена');
-    }else{
+    const randNum = Math.floor(Math.random() * 100 + 1);
+    console.log(randNum);
 
-        if(!isNumber(yourNum)){
-            alert('Введи число!');
-            guessNumber(randNum);
-        }
+    function guessNumber() {
+        let yourNum = prompt('Угадай число от 1 до 100');
+        
+        if(yourNum === null){
+            alert('Игра окончена');
+        }else{
 
-        if(parseFloat(yourNum) > rand) {
-            alert('Загаданное число меньше');
-            guessNumber(randNum);
-        }else if(parseFloat(yourNum) < rand) {
-            alert('Загаданное число больше');
-            guessNumber(randNum);
-        }else if(parseFloat(yourNum) === rand){
-            alert('Поздравляю, Вы угадали!!!');
+            if(!isNumber(yourNum)){
+                alert('Введи число!');
+                guessNumber();
+            }
+
+            if(parseFloat(yourNum) > randNum) {
+                alert('Загаданное число меньше');
+                guessNumber();
+            }else if(parseFloat(yourNum) < randNum) {
+                alert('Загаданное число больше');
+                guessNumber();
+            }else if(parseFloat(yourNum) === randNum){
+                alert('Поздравляю, Вы угадали!!!');
+            }
         }
     }
+    guessNumber();
+console.dir(guessNumber);
+
 }
 
-guessNumber(randNum);
+game();
