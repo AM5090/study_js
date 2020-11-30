@@ -56,8 +56,10 @@ let appData = {
 
         for(let i = 0; i < 2; i++){
 
-            expenses[i] = prompt('Введите обязательную статью расходов?', 'Интернет  Обеды');
-             
+            do{
+                expenses[i] = prompt('Введите обязательную статью расходов?', 'Интернет  Обеды');
+            }while(isNumber(expenses[i]) || expenses[i] === null || expenses[i].trim() === ''); 
+
             do{
                 amnt = prompt('Во сколько это обойдется?');
             }while(!isNumber(amnt));
