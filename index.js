@@ -1,14 +1,36 @@
 'use strict';
 
+const calculate = document.getElementById('start'),
+    incomeButton = document.getElementsByTagName('button')[0],
+    expensesButton = document.getElementsByTagName('button')[1],
+    depositCheck = document.querySelector('#deposit-check'),
+    additionalIncomeItem = document.querySelectorAll('.additional_income-item'),
+    budgetDayValue = document.getElementsByClassName('budget_day-value')[0],
+    expensesMonthValue = document.getElementsByClassName('expenses_month-value')[0],
+    additionalIncomeValue = document.getElementsByClassName('additional_income-value')[0],
+    additionalExpensesValue = document.getElementsByClassName('additional_expenses-value')[0],
+    incomePeriodValue = document.getElementsByClassName('income_period-value')[0],
+    targetMonthValue = document.getElementsByClassName('target_month-value')[0],
+    salaryAmount = document.querySelector('.salary-amount'),
+    incomeTitle = document.querySelector('input.income-title'),
+    incomeAmount = document.querySelector('.income-amount'),
+    expensesTitle = document.querySelector('input.expenses-title'),
+    expensesAmount = document.querySelector('.expenses-amount'),
+    additionalExpensesItem = document.querySelector('.additional_expenses-item'),
+    targetAmount = document.querySelector('.target-amount'),
+    periodSelect = document.querySelector('.period-select');
+
+
+
 const isNumber = function(n){
     return !isNaN(parseFloat(n)) && isFinite(n);
 };
 
 let money;
-const start = function(){
+const start = function(){/*
     do{
         money = prompt('Ваш месячный доход?', 50000);
-    }while(!isNumber(money));
+    }while(!isNumber(money));*/
 };
 
 start();
@@ -113,7 +135,7 @@ let appData = {
         return appData.budgetMonth * appData.period;
     }
 };
-
+/*
 appData.asking();
 appData.getExpensesMonth();
 appData.getBudget();
@@ -125,7 +147,7 @@ console.log(appData.getStatusIncome());
 console.log('\n\tНаша программа включает в себя:');
 for(let key in appData){
     console.log(key, appData[key]);
-}
+}*/
 
 let strArr = [];
 
