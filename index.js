@@ -20,8 +20,10 @@ let start = document.getElementById('start'),
     targetAmount = document.querySelector('.target-amount'),
     periodSelect = document.querySelector('.period-select'),
     incomeItem = document.querySelectorAll('.income-items'),
-    periodAmount = document.querySelector('.period-amount');
-
+    periodAmount = document.querySelector('.period-amount'),
+    incomeAmount = document.querySelector('.income-amount'),
+    expensesAmount = document.querySelector('.expenses-amount');
+    
 
 
 const isNumber = function(n){
@@ -72,6 +74,15 @@ let appData = {
     addIncomeBlock: function(){
         let cloneIncomeItem = incomeItem[0].cloneNode(true);
         incomeItem[0].parentNode.insertBefore(cloneIncomeItem, incomePlus);
+        let incomeTitle = cloneIncomeItem.querySelector('.income-title'),
+            incomeAmount = cloneIncomeItem.querySelector('.income-amount');
+
+        appData.inputValidationText(incomeTitle);
+        appData.inputValidation(incomeAmount);
+            
+        incomeTitle.value = '';
+        incomeAmount.value = '';
+
         incomeItem = document.querySelectorAll('.income-items');
 
         if(incomeItem.length === 3){
@@ -81,6 +92,16 @@ let appData = {
     addExpensesBlock: function(){
         let cloneExpensesItem = expensesItems[0].cloneNode(true);
         expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPlus);
+
+        let expensesTitle = cloneExpensesItem.querySelector('.expenses-title'),
+            expensesAmount = cloneExpensesItem.querySelector('.expenses-amount');
+
+        appData.inputValidationText(expensesTitle);
+        appData.inputValidation(expensesAmount);
+
+        expensesTitle.value = '';
+        expensesAmount.value = '';
+
         expensesItems = document.querySelectorAll('.expenses-items');
 
         if(expensesItems.length === 3){
@@ -97,7 +118,7 @@ let appData = {
             }
         });
     },
-    getIncome: function(){
+    getIncome: function(){        
 
         incomeItem.forEach(function(item){
             let itemIncome = item.querySelector('.income-title').value;
@@ -174,14 +195,68 @@ let appData = {
     },
     getTypeRange: function(){
         periodAmount.textContent = periodSelect.value;
+    },
+    inputValidation: function(inputField){
+
+        inputField.addEventListener('input', function(){
+            if(!isNumber(inputField.value)){
+                inputField.setAttribute('placeholder', 'Вводите только цифры');
+                setTimeout(() => inputField.value = '', 2000);
+                setTimeout(() => inputField.setAttribute('placeholder', 'Сумма'), 4000);
+            }
+        });
+
+    },
+    inputValidationText: function(inputFld){
+        inputFld.addEventListener('input', function(){
+
+        function setTim(a){
+            setTimeout(() => a.value = '', 2000);
+            setTimeout(() => a.setAttribute('placeholder', 'Наименование'), 4000);
+        }
+
+        for(let i = 0; i < inputFld.value.length; i++){
+        if(inputFld.value[i].charCodeAt(0) < 1105 || inputFld.value[i].charCodeAt(0) > 1105){
+            if(inputFld.value[i].charCodeAt(0) < 1040 || inputFld.value[i].charCodeAt(0) > 1103){
+                if(inputFld.value[i].charCodeAt(0) < 1025 || inputFld.value[i].charCodeAt(0) > 1025){
+                    if(inputFld.value[i].charCodeAt(0) < 32 || inputFld.value[i].charCodeAt(0) > 32){
+                        inputFld.setAttribute('placeholder', 'Вводите только кириллицу');
+                        setTim(inputFld);
+                    }
+                }
+            }
+        }
+        }
+
+        });
     }
 };//appData
 
 
 start.disabled = true;
-salaryAmount.addEventListener('input', function(event){
+salaryAmount.addEventListener('input', function(){
     start.disabled = salaryAmount.value.trim() === '';
+    if(!isNumber(salaryAmount.value)){
+        salaryAmount.setAttribute('placeholder', 'Вводите только цифры');
+        setTimeout(() => salaryAmount.value = '', 2000);
+        setTimeout(() => salaryAmount.setAttribute('placeholder', 'Сумма'), 4000);
+    }
 });
+
+//проверка на ввод толькоцифр
+appData.inputValidation(incomeAmount);
+appData.inputValidation(expensesAmount);
+appData.inputValidation(targetAmount);
+appData.inputValidation(incomeTitle);
+
+
+//проверка на ввод только русских букв
+appData.inputValidationText(incomeTitle);
+appData.inputValidationText(additionalIncomeItem[0]);
+appData.inputValidationText(additionalIncomeItem[1]);//additionalExpensesItem
+appData.inputValidationText(expensesTitle);
+appData.inputValidationText(additionalExpensesItem);
+
 
 start.addEventListener('click', appData.start);
 
