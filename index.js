@@ -1,17 +1,17 @@
 'use strict';
 
 let start = document.getElementById('start'),
-    incomePlus = document.getElementsByTagName('button')[0],
-    expensesPlus = document.getElementsByTagName('button')[1],
+    incomePlus = document.querySelector('.income_add'),
+    expensesPlus = document.querySelector('.expenses_add'),//+
     depositCheck = document.querySelector('#deposit-check'),
     additionalIncomeItem = document.querySelectorAll('.additional_income-item'),
-    budgetDayValue = document.getElementsByClassName('budget_day-value')[0],
+    budgetDayValue = document.querySelector('.budget_day-value'),
     budgetMonthValue = document.querySelector('.budget_month-value'),
-    expensesMonthValue = document.getElementsByClassName('expenses_month-value')[0],
-    additionalIncomeValue = document.getElementsByClassName('additional_income-value')[0],
-    additionalExpensesValue = document.getElementsByClassName('additional_expenses-value')[0],
-    incomePeriodValue = document.getElementsByClassName('income_period-value')[0],
-    targetMonthValue = document.getElementsByClassName('target_month-value')[0],
+    expensesMonthValue = document.querySelector('.expenses_month-value'),
+    additionalIncomeValue = document.querySelector('.additional_income-value'),
+    additionalExpensesValue = document.querySelector('.additional_expenses-value'),
+    incomePeriodValue = document.querySelector('.income_period-value'),
+    targetMonthValue = document.querySelector('.target_month-value'),
     salaryAmount = document.querySelector('.salary-amount'),
     incomeTitle = document.querySelector('input.income-title'),
     expensesTitle = document.querySelector('input.expenses-title'),
@@ -175,15 +175,15 @@ let appData = {
     getTypeRange: function(){
         periodAmount.textContent = periodSelect.value;
     }
-};
+};//appData
 
-salaryAmount.addEventListener('input', function(){
-    if(salaryAmount.value.trim() !== ''){
-        start.addEventListener('click', appData.start);
-    }else if(salaryAmount.value.trim() === ''){
-        start.removeEventListener('click', appData.start);
-    }
+
+start.disabled = true;
+salaryAmount.addEventListener('input', function(event){
+    start.disabled = salaryAmount.value.trim() === '';
 });
+
+start.addEventListener('click', appData.start);
 
 expensesPlus.addEventListener('click', appData.addExpensesBlock);
 incomePlus.addEventListener('click', appData.addIncomeBlock);
