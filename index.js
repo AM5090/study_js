@@ -33,6 +33,7 @@ const isNumber = function(n){
 };
 
 
+// Конструктор
 const AppData = function() {
     this.income = {};
     this.incomeMonth = 0;
@@ -248,26 +249,25 @@ AppData.prototype.calcPeriod = function(){
 AppData.prototype.getTypeRange = function(){
     periodAmount.textContent = periodSelect.value;
 };
-
+AppData.prototype.eventsListeners = function(){
+    start.disabled = true;
+    salaryAmount.addEventListener('input', function(){
+        start.disabled = salaryAmount.value.trim() === '';
+    });
+    
+    start.addEventListener('click', () => {
+        this.start();
+        this.startBlock();
+    });
+    cancel.addEventListener('click', () => {
+        this.reset();
+    });
+    expensesPlus.addEventListener('click', this.addExpensesBlock);
+    incomePlus.addEventListener('click', this.addIncomeBlock);
+    periodSelect.addEventListener('input', this.getTypeRange);
+};
 
 const appData = new AppData();
 console.log(appData);
 
-
-start.disabled = true;
-salaryAmount.addEventListener('input', function(){
-    start.disabled = salaryAmount.value.trim() === '';
-});
-
-start.addEventListener('click', function() {
-    appData.start.call(appData);
-    appData.startBlock.call(appData);
-});
-
-cancel.addEventListener('click', function() {
-    appData.reset.call(appData);
-});
-
-expensesPlus.addEventListener('click', appData.addExpensesBlock);
-incomePlus.addEventListener('click', appData.addIncomeBlock);
-periodSelect.addEventListener('input', appData.getTypeRange);
+appData.eventsListeners();
