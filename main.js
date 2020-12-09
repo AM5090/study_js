@@ -12,7 +12,7 @@ DomElement.prototype.createElem = function(){
     if(this.selector[0] === '.'){
         console.log(this.selector);
         let div = document.createElement('div');
-        div.classList.add(this.selector);
+        div.classList.add(this.selector.slice(1));
         document.body.append(div);
         div.textContent = 'Hello';
         div.style.cssText = `height: ${this.height}px; 
@@ -23,7 +23,7 @@ DomElement.prototype.createElem = function(){
     }else if(this.selector[0] === '#'){
         console.log(this.selector);
         let p = document.createElement('p');
-        p.classList.add(this.selector);
+        p.setAttribute('id', this.selector.slice(1));
         document.body.append(p);
         p.textContent = 'World';
         p.style.cssText = `height: ${this.height}px;
