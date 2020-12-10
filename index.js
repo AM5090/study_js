@@ -4,7 +4,7 @@ let start = document.getElementById('start'),
     cancel = document.getElementById('cancel'),
     incomePlus = document.querySelector('.income_add'),
     expensesPlus = document.querySelector('.expenses_add'),
-    depositCheck = document.querySelector('#deposit-check'),
+    depositCheck = document.getElementById('deposit-check'),
     additionalIncomeItem = document.querySelectorAll('.additional_income-item'),
     budgetDayValue = document.querySelector('.budget_day-value'),
     budgetMonthValue = document.querySelector('.budget_month-value'),
@@ -25,8 +25,12 @@ let start = document.getElementById('start'),
     incomeAmount = document.querySelector('.income-amount'),
     expensesAmount = document.querySelector('.expenses-amount'),
     leftData = document.querySelector('.data'),
-    leftInput = leftData.querySelectorAll('input[type=text]');
-    
+    leftInput = leftData.querySelectorAll('input[type=text]'),
+    depositBank = document.querySelector('.deposit-bank'),
+    depositAmount = document.querySelector('.deposit-amount'),
+    depositPercent = document.querySelector('.deposit-percent');
+
+
 
 const isNumber = function(n){
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -58,6 +62,7 @@ class AppData {
         this.getExpensesMonth();
         this.getAddExpenses();
         this.getAddIncome();
+        this.getInfoDeposit();
         this.getBudget();
         this.getTypeRange();
     
@@ -230,7 +235,8 @@ class AppData {
 
     getBudget() {
         // вычесляем бюджет на месяц (все доходы - расходы) и бюджет на день
-        this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth;
+        const monthDeposit = this.moneyDeposit * (this.percentDeposit / 100);//расчет депозита
+        this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth + monthDeposit;
         this.budgetDay = Math.floor(this.budgetMonth/30);
     }
 
@@ -260,6 +266,48 @@ class AppData {
         periodAmount.textContent = periodSelect.value;
     }
 
+    getInfoDeposit(){
+        if(this.deposit){
+            this.percentDeposit = depositPercent.value;
+            this.moneyDeposit = depositAmount.value;
+        }
+    }
+
+    changePercent(){
+        const valueSelect = this.value;
+        if(valueSelect === 'other'){
+            depositPercent.style.display = 'inline-block';
+            depositPercent.value = '';
+            depositPercent.addEventListener('input', () => {
+                if(!isNumber(depositPercent.value) || (depositPercent.value < 0 || depositPercent.value > 100)){
+                    depositPercent.value = 0;
+                    start.disabled = true;
+                }else{
+                    this.percentDeposit = depositPercent.value;
+                }
+            });
+        }else{
+            depositPercent.value = valueSelect;
+        }
+    }
+
+    depositHandler() {
+        if(depositCheck.checked) {
+            depositBank.style.display = 'inline-block';
+            depositAmount.style.display = 'inline-block';
+            this.deposit = true;
+            depositBank.addEventListener('change', this.changePercent);
+        }else{
+            depositBank.style.display = 'none';
+            depositAmount.style.display = 'none';
+            depositBank.value = '';
+            depositAmount.value = '';
+            depositPercent.value = '';
+            this.deposit = false;
+            depositBank.removeEventListener('change', this.changePercent);
+        }
+    }
+
     eventsListeners() {
         start.disabled = true;
         salaryAmount.addEventListener('input', () => {
@@ -276,10 +324,11 @@ class AppData {
         expensesPlus.addEventListener('click', this.addExpensesBlock);
         incomePlus.addEventListener('click', this.addIncomeBlock);
         periodSelect.addEventListener('input', this.getTypeRange);
+
+        depositCheck.addEventListener('change', this.depositHandler.bind(this));
     }
 }
 
 const appData = new AppData();
-console.log(appData);
 
 appData.eventsListeners();
