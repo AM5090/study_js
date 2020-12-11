@@ -128,6 +128,13 @@ class AppData {
         }
     
         start.disabled = true;
+        depositCheck.checked = false;
+        if(depositCheck.checked === false){
+            depositBank.style.display = 'none';
+            depositAmount.style.display = 'none';
+            depositPercent.style.display = 'none';
+        }
+        depositBank.value = '';
     }
 
     showResult() {
@@ -300,6 +307,7 @@ class AppData {
         }else{
             depositBank.style.display = 'none';
             depositAmount.style.display = 'none';
+            depositPercent.style.display = 'none';
             depositBank.value = '';
             depositAmount.value = '';
             depositPercent.value = '';
