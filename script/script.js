@@ -40,15 +40,14 @@ window.addEventListener('DOMContentLoaded', () => {
         idInterval = setInterval(updateClock, 1000);
     }
 
-    countTimer('17 december 2020');
+    countTimer('19 december 2020');
 
     //меню
     const toggleMenu = () => {
 
         const btnMenu = document.querySelector('.menu'),
-            menu = document.querySelector('menu');
-            //closeBtn = document.querySelector('.close-btn'),
-            //menuItems = menu.querySelectorAll('ul>li');
+            menu = document.querySelector('menu'),
+            menuItems = menu.querySelectorAll('a');
 
         //открытие и закрытие меню
         const handlerMenu = () => {
@@ -56,12 +55,17 @@ window.addEventListener('DOMContentLoaded', () => {
         };
 
         btnMenu.addEventListener('click', handlerMenu);
+
         menu.addEventListener('click', event => {
             let target = event.target;
-            target = target.closest('.active-menu');
-            if (target) {
-                handlerMenu();
-            }
+            menuItems.forEach(elem => {
+                if (elem === target) {
+                    target = target.closest('.active-menu');
+                    if (target) {
+                        handlerMenu();
+                    }
+                }
+            });
         });
 
     };
