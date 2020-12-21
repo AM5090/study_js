@@ -40,7 +40,7 @@ window.addEventListener('DOMContentLoaded', () => {
         idInterval = setInterval(updateClock, 1000);
     }
 
-    countTimer('19 december 2020');
+    countTimer('22 december 2020');
 
     //меню
     const toggleMenu = () => {
@@ -255,6 +255,38 @@ window.addEventListener('DOMContentLoaded', () => {
     };
 
     slider();
+
+    // смена фото по дата атрибуту
+    const dataSrc = () => {
+        const commandPhotos = document.querySelectorAll('img.command__photo');
+
+        commandPhotos.forEach(item => {
+            item.addEventListener('mouseover', event => {
+                const srcValue = event.target.src;
+                event.target.src = event.target.dataset.img;
+                item.addEventListener('mouseout', event => {
+                    event.target.src = srcValue;
+                });
+            });
+        });
+
+    };
+
+    dataSrc();
+
+    // калькулятор
+    const calculet = () => {
+        const calcBlock = document.querySelector('.calc-block');
+
+
+        calcBlock.addEventListener('input', event => {
+            const target = event.target.closest('input');
+            target.value = target.value.replace(/\D/g, '');
+
+        });
+    };
+
+    calculet();
 
 });
 
