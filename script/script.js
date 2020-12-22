@@ -286,7 +286,8 @@ window.addEventListener('DOMContentLoaded', () => {
         const countSum = () => {
             let total = 0,
                 countValue = 1,
-                dayValue = 1;
+                dayValue = 1,
+                count = 0;
 
             const typeValue = calcType.options[calcType.selectedIndex].value,
                 squareValue = +calcSquare.value;
@@ -305,7 +306,23 @@ window.addEventListener('DOMContentLoaded', () => {
                 total = price * typeValue * squareValue * countValue * dayValue;
             }
 
-            totalValue.textContent = total;
+            const interval = setInterval(() => {
+                if (total < 5000) {
+                    count += 10;
+                } else if (total < 10000) {
+                    count += 100;
+                } else {
+                    count += 200;
+                }
+
+                if (count < total) {
+                    totalValue.textContent = count;
+                } else {
+                    clearInterval(interval);
+                    totalValue.textContent = parseInt(total);
+                }
+            }, 1);
+
         };
 
 
