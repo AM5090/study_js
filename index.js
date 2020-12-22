@@ -154,6 +154,7 @@ class AppData {
     addIncomeBlock() {
         const cloneIncomeItem = incomeItem[0].cloneNode(true);
         incomeItem[0].parentNode.insertBefore(cloneIncomeItem, incomePlus);
+        
         const incomeTitle = cloneIncomeItem.querySelector('.income-title'),
             incomeAmount = cloneIncomeItem.querySelector('.income-amount');
             
@@ -320,6 +321,7 @@ class AppData {
         start.disabled = true;
         salaryAmount.addEventListener('input', () => {
             start.disabled = salaryAmount.value.trim() === '';
+            salaryAmount.value = salaryAmount.value.replace(/\D/g, '');
         });
         
         start.addEventListener('click', () => {
@@ -334,6 +336,16 @@ class AppData {
         periodSelect.addEventListener('input', this.getTypeRange);
 
         depositCheck.addEventListener('change', this.depositHandler.bind(this));
+
+        document.addEventListener('input', event => {
+            const target = event.target;
+            if (target.matches('input[placeholder="Наименование"]') ||
+                target.matches('input[placeholder="название"]')) {
+                target.value = target.value.replace(/\d/g, '');
+            } else if (target.matches('input[placeholder="Сумма"]')) {
+                target.value = target.value.replace(/\D/g, '');
+            }
+        });
     }
 }
 
