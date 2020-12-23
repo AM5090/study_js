@@ -284,11 +284,10 @@ window.addEventListener('DOMContentLoaded', () => {
             totalValue = document.getElementById('total');
 
         // eslint-disable-next-line no-unused-vars
-        let interval,
-            total = 0;
+        let interval;
 
         const countSum = () => {
-            let //total = 0,
+            let total = 0,
                 countValue = 1,
                 dayValue = 1,
                 count = 0;
@@ -314,6 +313,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
             const anmtCulc = () => {
 
+                interval = requestAnimationFrame(anmtCulc, 1);
+
                 if (total < 5000) {
                     count += 10;
                 } else if (total < 10000) {
@@ -326,20 +327,13 @@ window.addEventListener('DOMContentLoaded', () => {
                     totalValue.textContent = count;
                 } else {
                     totalValue.textContent = Math.floor(total);
-                    clearInterval(interval);
+                    cancelAnimationFrame(interval);
                 }
 
             };
 
-            interval = setInterval(anmtCulc, 1);
+            interval = requestAnimationFrame(anmtCulc, 1);
 
-
-            calcBlock.addEventListener('input', event => {
-                const target = event.target;
-                if (target.matches('select') || target.matches('input')) {
-                    total = 0;
-                }
-            });
         };
 
 
@@ -347,6 +341,7 @@ window.addEventListener('DOMContentLoaded', () => {
             const target = event.target;
 
             if (target.matches('select') || target.matches('input')) {
+                cancelAnimationFrame(interval);
                 if (target.matches('input')) {
                     target.value = target.value.replace(/\D/g, '');
                 }
