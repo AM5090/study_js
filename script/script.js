@@ -283,14 +283,20 @@ window.addEventListener('DOMContentLoaded', () => {
             calcDay = document.querySelector('.calc-day'),
             totalValue = document.getElementById('total');
 
+        // eslint-disable-next-line no-unused-vars
+        let interval,
+            total = 0;
+
         const countSum = () => {
-            let total = 0,
+            let //total = 0,
                 countValue = 1,
                 dayValue = 1,
                 count = 0;
 
+
             const typeValue = calcType.options[calcType.selectedIndex].value,
                 squareValue = +calcSquare.value;
+
 
             if (calcCount.value > 1) {
                 countValue += (calcCount.value - 1) / 10;
@@ -306,7 +312,8 @@ window.addEventListener('DOMContentLoaded', () => {
                 total = price * typeValue * squareValue * countValue * dayValue;
             }
 
-            const interval = setInterval(() => {
+            const anmtCulc = () => {
+
                 if (total < 5000) {
                     count += 10;
                 } else if (total < 10000) {
@@ -318,25 +325,41 @@ window.addEventListener('DOMContentLoaded', () => {
                 if (count < total) {
                     totalValue.textContent = count;
                 } else {
+                    totalValue.textContent = Math.floor(total);
                     clearInterval(interval);
-                    totalValue.textContent = parseInt(total);
                 }
-            }, 1);
 
+            };
+
+            interval = setInterval(anmtCulc, 1);
+
+
+            calcBlock.addEventListener('input', event => {
+                const target = event.target;
+                if (target.matches('select') || target.matches('input')) {
+                    total = 0;
+                }
+            });
         };
 
 
-        calcBlock.addEventListener('change', event => {
+        calcBlock.addEventListener('input', event => {
             const target = event.target;
 
             if (target.matches('select') || target.matches('input')) {
-                countSum();
                 if (target.matches('input')) {
                     target.value = target.value.replace(/\D/g, '');
                 }
-            }
 
+                if (target.value === '0' || target.value === '') {
+                    totalValue.textContent = 0;
+                    clearInterval(interval);
+                } else {
+                    countSum();
+                }
+            }
         });
+
     };
 
     calculet(100);
