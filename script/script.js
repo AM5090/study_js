@@ -396,10 +396,15 @@ window.addEventListener('DOMContentLoaded', () => {
                 itemValid.addEventListener('input', () => {
                     if (itemValid.name === 'user_phone') {
                         itemValid.value = itemValid.value.replace(phoneMask, '');
+                        itemValid.setAttribute('pattern', "[0-9+]{11,}");
                     } else if (itemValid.name === 'user_name') {
                         itemValid.value = itemValid.value.replace(nameMask, '');
+                        itemValid.setAttribute('pattern', '[А-Яа-яЁё\\s]{2,50}');
                     } else if (itemValid.name === 'user_message') {
                         itemValid.value = itemValid.value.replace(messageMask, '');
+                    } else if (itemValid.name === 'user_email') {
+                        itemValid.value = itemValid.value.replace(/[А-Яа-яЁё]/, '');
+                        itemValid.setAttribute('pattern', '\\w+@\\w+\\.\\w{2,3}');
                     }
                 });
             }
