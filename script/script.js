@@ -409,6 +409,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
         validData();
 
+        const formClear = formElem => {
+            formElem.forEach(item => {
+                if (item.type === 'text' || item.type === 'email' || item.type === 'tel') {
+                    item.value = '';
+                }
+            });
+        };
+
         // отслеживание первой формы
         form.addEventListener('submit', event => {
             event.preventDefault();
@@ -422,18 +430,19 @@ window.addEventListener('DOMContentLoaded', () => {
                 body[key] = val;
             });
             // eslint-disable-next-line no-use-before-define
-            postData(body, () => {
-                formInput.forEach(item => {
-                    if (item.type === 'text' || item.type === 'email' || item.type === 'tel') {
-                        item.value = '';
+            postData(body)
+                .then(response => {
+                    if (response.status !== 200) {
+                        throw new Error('status network not 200');
                     }
+                    statusMessage.textContent = successMessage;
+                    formClear(formInput);
+                })
+                .catch(error => {
+                    console.error(error);
+                    statusMessage.textContent = errorMessage;
+                    formClear(formInput);
                 });
-            }).then(() => {
-                statusMessage.textContent = successMessage;
-            }, error => {
-                console.error(error);
-                statusMessage.textContent = errorMessage;
-            });
         });
 
         // отслеживание последней формы
@@ -449,18 +458,18 @@ window.addEventListener('DOMContentLoaded', () => {
                 bodyEnd[key] = val;
             });
             // eslint-disable-next-line no-use-before-define
-            postData(bodyEnd, () => {
-                formInputEnd.forEach(item => {
-                    if (item.type === 'text' || item.type === 'email' || item.type === 'tel') {
-                        item.value = '';
+            postData(bodyEnd)
+                .then(response => {
+                    if (response.status !== 200) {
+                        throw new Error('status network not 200');
                     }
+                    statusMessage.textContent = successMessage;
+                    formClear(formInputEnd);
+                }).catch(error => {
+                    console.error(error);
+                    statusMessage.textContent = errorMessage;
+                    formClear(formInputEnd);
                 });
-            }).then(() => {
-                statusMessage.textContent = successMessage;
-            }, error => {
-                console.error(error);
-                statusMessage.textContent = errorMessage;
-            });
         });
 
 
@@ -477,148 +486,31 @@ window.addEventListener('DOMContentLoaded', () => {
                 bodyPopUp[key] = val;
             });
             // eslint-disable-next-line no-use-before-define
-            postData(bodyPopUp, () => {
-                formInputPopUp.forEach(item => {
-                    if (item.type === 'text' || item.type === 'email' || item.type === 'tel') {
-                        item.value = '';
+            postData(bodyPopUp)
+                .then(response => {
+                    if (response.status !== 200) {
+                        throw new Error('status network not 200');
                     }
+                    statusMessage.textContent = successMessage;
+                    formClear(formInputPopUp);
+                }).catch(error => {
+                    console.error(error);
+                    statusMessage.textContent = errorMessage;
+                    formClear(formInputPopUp);
                 });
-            }).then(() => {
-                statusMessage.textContent = successMessage;
-            }, error => {
-                console.error(error);
-                statusMessage.textContent = errorMessage;
-            });
         });
 
 
-        const postData = (body, formClear) => new Promise((resolve, reject) => {
+        const postData = function(body) {
 
-            const request = new XMLHttpRequest();
-            request.addEventListener('readystatechange', () => {
-                if (request.readyState !== 4) {
-                    return;
-                }
-                if (request.status === 200) {
-                    resolve();
-                    formClear();
-                } else {
-                    reject(request.status);
-                    formClear();
-                }
+            return fetch('./server.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
             });
-
-            request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type', 'application/json');
-
-            request.send(JSON.stringify(body));
-        });
-
-        /*
-        // отслеживание первой формы
-        form.addEventListener('submit', event => {
-            event.preventDefault();
-            form.append(statusMessage);
-            statusMessage.textContent = loadMessage;
-            statusMessage.style.cssText = 'color: #fff;';
-            const formData = new FormData(form);
-            const body = {};
-
-            formData.forEach((val, key) => {
-                body[key] = val;
-            });
-            // eslint-disable-next-line no-use-before-define
-            postData(body, () => {
-                statusMessage.textContent = successMessage;
-            }, error => {
-                console.error(error);
-                statusMessage.textContent = errorMessage;
-            }, () => {
-                formInput.forEach(item => {
-                    if (item.type === 'text' || item.type === 'email' || item.type === 'tel') {
-                        item.value = '';
-                    }
-                });
-            });
-        });
-
-        // отслеживание последней формы
-        formEnd.addEventListener('submit', event => {
-            event.preventDefault();
-            formEnd.append(statusMessage);
-            statusMessage.textContent = loadMessage;
-            statusMessage.style.cssText = 'color: #fff;';
-            const formData = new FormData(formEnd);
-            const bodyEnd = {};
-
-            formData.forEach((val, key) => {
-                bodyEnd[key] = val;
-            });
-            // eslint-disable-next-line no-use-before-define
-            postData(bodyEnd, () => {
-                statusMessage.textContent = successMessage;
-            }, error => {
-                console.error(error);
-                statusMessage.textContent = errorMessage;
-            }, () => {
-                formInputEnd.forEach(item => {
-                    if (item.type === 'text' || item.type === 'email' || item.type === 'tel') {
-                        item.value = '';
-                    }
-                });
-            });
-        });
-
-
-        // отслеживание попап формы
-        formPopUp.addEventListener('submit', event => {
-            event.preventDefault();
-            formPopUp.append(statusMessage);
-            statusMessage.textContent = loadMessage;
-            statusMessage.style.cssText = 'color: #19b5fe;';
-            const formData = new FormData(formPopUp);
-            const bodyPopUp = {};
-
-            formData.forEach((val, key) => {
-                bodyPopUp[key] = val;
-            });
-            // eslint-disable-next-line no-use-before-define
-            postData(bodyPopUp, () => {
-                statusMessage.textContent = successMessage;
-            }, error => {
-                console.error(error);
-                statusMessage.textContent = errorMessage;
-            }, () => {
-                formInputPopUp.forEach(item => {
-                    if (item.type === 'text' || item.type === 'email' || item.type === 'tel') {
-                        item.value = '';
-                    }
-                });
-            });
-        });
-
-
-        const postData = (body, outputData, errorData, formClear) => {
-
-            const request = new XMLHttpRequest();
-            request.addEventListener('readystatechange', () => {
-                if (request.readyState !== 4) {
-                    return;
-                }
-                if (request.status === 200) {
-                    outputData();
-                    formClear();
-                } else {
-                    errorData(request.status);
-                    formClear();
-                }
-            });
-
-            request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type', 'application/json');
-
-            request.send(JSON.stringify(body));
-        };*/
+        };
 
     };
 
