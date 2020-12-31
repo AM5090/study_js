@@ -20,7 +20,8 @@ const sandForm = () => {
         const phoneMask = /[^0-9+]/;
         const nameMask = /[^А-Яа-яЁё\s]/;
         // eslint-disable-next-line no-useless-escape
-        const messageMask = /[^А-Яа-яЁё\s\d\.\,\!]/;
+        const messageMask = /[^А-Яа-яЁё\s\d\.\,\!\:\?]/;
+        //const emailMask = /[^a-z]/i;
 
         formInput.forEach(item => validation(item));
         formInputEnd.forEach(item => validation(item));
@@ -38,7 +39,7 @@ const sandForm = () => {
                     itemValid.value = itemValid.value.replace(messageMask, '');
                 } else if (itemValid.name === 'user_email') {
                     itemValid.value = itemValid.value.replace(/[А-Яа-яЁё]/, '');
-                    itemValid.setAttribute('pattern', '\\w+@\\w+\\.\\w{2,3}');
+                    itemValid.setAttribute('pattern', '[\\w-]+@[\\w-]+\\.\\w{2,3}');
                 }
             });
         }
