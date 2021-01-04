@@ -4,6 +4,8 @@ const sandForm = () => {
         loadMessage = 'Загрузка...',
         successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
+    const popup = document.querySelector('.popup');
+
     const form = document.getElementById('form1'),
         formEnd = document.getElementById('form2'),
         formPopUp = document.getElementById('form3');
@@ -21,7 +23,6 @@ const sandForm = () => {
         const nameMask = /[^А-Яа-яЁё\s]/;
         // eslint-disable-next-line no-useless-escape
         const messageMask = /[^А-Яа-яЁё\s\d\.\,\!\:\?]/;
-        //const emailMask = /[^a-z]/i;
 
         formInput.forEach(item => validation(item));
         formInputEnd.forEach(item => validation(item));
@@ -37,6 +38,7 @@ const sandForm = () => {
                     itemValid.setAttribute('pattern', '[А-Яа-яЁё\\s]{2,50}');
                 } else if (itemValid.name === 'user_message') {
                     itemValid.value = itemValid.value.replace(messageMask, '');
+                    itemValid.setAttribute('maxlength', '25');
                 } else if (itemValid.name === 'user_email') {
                     itemValid.value = itemValid.value.replace(/[А-Яа-яЁё]/, '');
                     itemValid.setAttribute('pattern', '[\\w-]+@[\\w-]+\\.\\w{2,3}');
@@ -53,6 +55,7 @@ const sandForm = () => {
                 item.value = '';
             }
         });
+        setTimeout(() => statusMessage.textContent = '', 4000);
     };
 
     // отслеживание первой формы
@@ -131,13 +134,14 @@ const sandForm = () => {
                 }
                 statusMessage.textContent = successMessage;
                 formClear(formInputPopUp);
+                setTimeout(() => popup.style.display = 'none', 5000);
             }).catch(error => {
                 console.error(error);
                 statusMessage.textContent = errorMessage;
                 formClear(formInputPopUp);
+                setTimeout(() => popup.style.display = 'none', 5000);
             });
     });
-
 
     const postData = function(body) {
 
