@@ -32,7 +32,8 @@ const sandForm = () => {
             itemValid.addEventListener('input', () => {
                 if (itemValid.name === 'user_phone') {
                     itemValid.value = itemValid.value.replace(phoneMask, '');
-                    itemValid.setAttribute('pattern', "[0-9+]{11,}");
+                    itemValid.setAttribute('pattern', "[0-9+]{12,}");
+                    itemValid.setAttribute('title', "Введите не менее 11 цифр номера телефона и знак +");
                 } else if (itemValid.name === 'user_name') {
                     itemValid.value = itemValid.value.replace(nameMask, '');
                     itemValid.setAttribute('pattern', '[А-Яа-яЁё\\s]{2,50}');
