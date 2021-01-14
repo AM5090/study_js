@@ -824,13 +824,15 @@ hr.white {
 	}
 	h1.big,
 	.title-h1.big {
-		font-size: 80px;
+		font-size: 70px;
 		line-height: 1;
 		margin-bottom: 50px;
 	}
 	.top-slider .text {
 		font-size: 18px;
 		line-height: 1.6;
+		max-width: 80%;
+		padding-left: 20%;
 	}
 	.top-menu > ul > li > a {
 		font-size: 16px;
@@ -943,7 +945,7 @@ video#video_background {
 		transition: 0.5s;
 	}
 	.top-slider .table.active {
-		webkit-transform: scale(1);
+		-webkit-transform: scale(1);
 		-ms-transform: scale(1);
 		-o-transform: scale(1);
 		transform: scale(1);
