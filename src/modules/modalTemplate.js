@@ -1,6 +1,5 @@
 // Модальное окно
-// eslint-disable-next-line no-unused-vars
-const modal = () => {
+const modalTemplate = openModal => {
 
     const modalCallback = document.querySelector('.modal-callback'),
         modalOverlay = document.querySelector('.modal-overlay');
@@ -9,7 +8,7 @@ const modal = () => {
 
         const target = event.target;
 
-        if (target.closest('.callback-btn')) {
+        if (target.closest(openModal)) {
             modalOverlay.style.display = 'block';
             modalCallback.style.display = 'block';
         }
@@ -22,4 +21,4 @@ const modal = () => {
 
 };
 
-export default modal;
+export default modalTemplate;
