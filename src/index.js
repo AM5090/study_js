@@ -3,6 +3,8 @@ import modalTemplate from './modules/modalTemplate';
 import scrollContent from './modules/scrollContent';
 import slider from './modules/slider';
 import scrollServices from './modules/scrollServices';
+import accordeon from './modules/accordeon';
+
 
 
 // Модальное окно
@@ -17,4 +19,5 @@ scrollContent();
 // Слайдер
 slider();
 
-
+// Аккордеон
+accordeon();
