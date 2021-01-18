@@ -75,7 +75,12 @@ const scrollServices = callbackModal => {
     carousel.init();
 
     // Колбек функция из модуля modalTemplate
-    callbackModal('.services-carousel');
+
+    // Открывание модального окна через раздел услуги
+    callbackModal('.btn-before');
+
+    // Открывание модального окна через раздел "Не нашли нужной услуги?"
+    callbackModal('.button-services');
 
 };
 
