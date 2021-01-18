@@ -4,7 +4,7 @@ const scrollContent = () => {
     const servicesSection = document.querySelector('.services-section'),
         accordeonSection = document.querySelector('.accordeon-section'),
         contactsSection = document.querySelector('.contacts-section'),
-        up = document.querySelector('.up'),
+        //up = document.querySelector('.up'),
         topMenu = document.querySelector('.top-menu'),
         allScrollTag = topMenu.querySelectorAll('ul>li>a');
 
@@ -31,9 +31,10 @@ const scrollContent = () => {
         document.documentElement.scrollTop = contactsSectionTop.top - 100;
     });
 
+    /*
     up.addEventListener('click', () => {
         document.documentElement.scrollTop = 0;
-    });
+    });*/
 };
 
 export default scrollContent;
