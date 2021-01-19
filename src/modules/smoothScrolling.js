@@ -1,48 +1,41 @@
 // Плавный скролл
-
 const smoothScrolling = () => {
 
     const up = document.querySelector('.up'),
-        servSectionPosition = document.querySelector('.services-section').getBoundingClientRect();
+        servSection = document.querySelector('.services-section');
 
-    console.log(servSectionPosition);
+    let scrollDoc = document.documentElement.scrollTop;
+    if (scrollDoc < servSection.offsetTop - 300) {
+        up.style.display = 'none';
+    }
 
-    const upPositionFunc = () => {
-        const upPosition = up.getBoundingClientRect();
-        console.log(upPosition.top);
-        if (upPosition.top >= servSectionPosition.top) {
+    document.addEventListener('scroll', () => {
+        scrollDoc = document.documentElement.scrollTop;
+        if (scrollDoc < servSection.offsetTop - 300) {
             up.style.display = 'none';
+        } else {
+            up.style.display = 'block';
         }
-
-    };
+    });
 
     up.addEventListener('click', () => {
-
-        let docScroll = document.documentElement.scrollTop;
         let interval = 0;
-        const startPoin = document.documentElement.scrollTop - 100;
+        scrollDoc = document.documentElement.scrollTop;
 
         const scroll = () => {
             interval = requestAnimationFrame(scroll, 1);
-            upPositionFunc();
-            if (document.documentElement.scrollTop > startPoin - 100) {
-                docScroll -= 30;
-                document.documentElement.scrollTop = docScroll;
-            } else if (document.documentElement.scrollTop > 100) {
-                docScroll -= 50;
-                document.documentElement.scrollTop = docScroll;
-            } else {
-                docScroll -= 20;
-                document.documentElement.scrollTop = docScroll;
-                if (docScroll <= 0) {
-                    document.documentElement.scrollTop = 0;
+            if (document.documentElement.scrollTop >= 200) {
+                scrollDoc -= 40;
+                document.documentElement.scrollTop = scrollDoc;
+            } else if (document.documentElement.scrollTop <= 200) {
+                scrollDoc -= 10;
+                document.documentElement.scrollTop = scrollDoc;
+                if (scrollDoc <= 0) {
                     cancelAnimationFrame(interval);
                 }
             }
         };
-
         interval = requestAnimationFrame(scroll, 1);
-
     });
 };
 
