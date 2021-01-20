@@ -50,6 +50,7 @@ const request = () => {
                 item.value = '';
             }
         }
+        setTimeout(() => div.textContent = '', 4000);
     };
 
     // по клику получаем данные из формы и передаем через fetch
