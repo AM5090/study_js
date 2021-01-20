@@ -22,6 +22,7 @@ const request = () => {
 
         formInput.forEach(item => {
             if (item.name === 'fio' || item.name === 'tel') {
+                item.setAttribute('required', '');
                 valid(item);
             }
         });
@@ -30,12 +31,10 @@ const request = () => {
             itemValid.addEventListener('input', () => {
                 if (itemValid.name === 'fio') {
                     itemValid.value = itemValid.value.replace(nameMask, '');
-                    itemValid.setAttribute('required', '');
                     itemValid.setAttribute('pattern', '[А-Яа-яЁё\\s]{2,50}');
                     itemValid.setAttribute('title', "Введите от 2 до 50 букв");
                 } else if (itemValid.name === 'tel') {
                     itemValid.value = itemValid.value.replace(phoneMask, '');
-                    itemValid.setAttribute('required', '');
                     itemValid.setAttribute('pattern', "[+0-9]{12,}");
                     itemValid.setAttribute('title', "Введите не менее 11 цифр номера телефона и знак +");
                 }
