@@ -5,7 +5,7 @@ import slider from './modules/slider';
 import scrollServices from './modules/scrollServices';
 import accordeon from './modules/accordeon';
 import smoothScrolling from './modules/smoothScrolling';
-
+import request from './modules/serverRequest';
 
 
 // Модальное окно
@@ -25,3 +25,6 @@ slider();
 
 // Аккордеон
 accordeon();
+
+// AJAX запрос
+request();

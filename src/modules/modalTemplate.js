@@ -9,7 +9,6 @@ const modalTemplate = openModal => {
         const target = event.target;
 
         if (target.closest(openModal)) {
-            console.log(openModal);
             modalOverlay.style.display = 'block';
             modalCallback.style.display = 'block';
         }
