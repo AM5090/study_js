@@ -1,0 +1,24 @@
+.section-scroll {
+    padding: 22px 0;
+    .scroll {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 27px;
+        margin: 0 auto;
+    }
+}
+
+.scroll__burger {
+    width: 18px;
+    height: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    .scroll__burger-item {
+        width: 100%;
+        height: 2px;
+        background-color: var(--grey);
+    }
+}

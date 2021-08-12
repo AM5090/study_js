@@ -1,1 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+}
+
+:root {
+    --grey: #0000008A;
+    --blue: #1071FF;
+
+}
+
+/* кнопка без границ и заливки со знаком + */
+.button-one{
+    display: flex;
+    align-items: center;
+    .button-one__plus{
+        transform: scale(1.5);
+        display: block;
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--blue);
+    }
+
+    .button-one__text{
+        padding-left: 13px;
+        font-size: 12px;
+        font-weight: 600;
+        font-style: normal;
+        color: var(--blue);
+    }
+}
