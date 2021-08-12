@@ -1,4 +1,5 @@
-.section-scroll {
+/*.section-scroll {
+    
     padding: 22px 0;
     .scroll {
         display: flex;
@@ -20,5 +21,26 @@
         width: 100%;
         height: 2px;
         background-color: var(--grey);
+    }
+}*/
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 27px;
+    margin: 0 auto;
+    .header__burger {
+        width: 18px;
+        height: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        .header__burger-item {
+            width: 100%;
+            height: 2px;
+            background-color: var(--grey);
+        }
     }
 }
