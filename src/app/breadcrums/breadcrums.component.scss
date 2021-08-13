@@ -1,3 +1,9 @@
+/* переменные */
+$grey: #0000008A;
+$lite-grey: #00000014;
+$blue: #1071FF;
+$black: #000000DE;
+
 .section-breadcrums {
     height: 50px;
     .breadcrums {
@@ -15,13 +21,13 @@
         display: flex;
         align-items: center;
     
-        color: var(--grey);
+        color: $grey;
         .breadcrums__element {
             width: 12px;
             height: 2px;
             margin: 0 10px;
             opacity: 0.5;
-            background-color: var(--grey);
+            background-color: $grey;
         }
     }
 }
