@@ -1,0 +1,28 @@
+.section-breadcrums {
+    height: 50px;
+    .breadcrums {
+        position: absolute;
+        height: 16px;
+        left: 67px;
+        right: 67px;
+        top: 80px;
+    
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+    
+        display: flex;
+        align-items: center;
+    
+        color: var(--grey);
+        .breadcrums__element {
+            width: 12px;
+            height: 2px;
+            margin: 0 10px;
+            opacity: 0.5;
+            background-color: var(--grey);
+        }
+    }
+}
+
