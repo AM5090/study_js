@@ -95,30 +95,3 @@ $black: #000000DE;
     }
 }
 
-/* поля выбора */
-
-.choice {
-    margin-top: 76px;
-    .choice-search {
-        position: relative;
-        width: 166px;
-        .choice-search__icon {
-            position: absolute;
-            top: -3px;
-            left: 2px;
-            img {
-                display: block;
-            }
-        }
-        .choice-search__input {
-            border: none;
-            border-bottom: 1px solid $lite-grey;
-            padding-left: 45px;
-            &::placeholder {
-                font-size: 12px;
-                font-weight: 500px;
-                
-            }
-        }
-    }
-}
