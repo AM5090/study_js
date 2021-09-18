@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { NavBar } from './Components/NavBar/NavBar'
+import { Menu } from './Components/Menu/Menu';
+import { GlobalStyle } from './Components/Style/GlobalStyle';
+import React from 'react';
+import { ModalItem } from './Components/Modal/ModalItem';
+import { Order } from './Components/Order/Order';
+import { useOpenItem } from './Components/Hooks/useOpenItem';
+import { useOrders } from './Components/Hooks/useOrders';
 
 function App() {
+
+  const openItem = useOpenItem();
+  const orders = useOrders();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyle/>
+      <NavBar/>
+      <Order {...orders}/>
+      <Menu {...openItem}/>
+      { openItem.openItem && <ModalItem {...openItem} {...orders}/> }
+    </>
   );
 }
 
