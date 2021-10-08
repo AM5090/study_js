@@ -16,6 +16,10 @@ body {
 }
 
 .header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 999;
   background-color: #282c34;
   padding: 10px 25px 15px;
   box-shadow: 0px 0px 20px 0px #61dafb47;
@@ -31,10 +35,11 @@ body {
 
 .list {
   display: grid;
-  grid-template-columns: repeat(4, 285px);
+  grid-template-columns: repeat(auto-fill, minmax(285px, auto));
   justify-content: space-between;
+  grid-column-gap: 20px;
   grid-row-gap: 35px;
-  margin: 35px 0;
+  margin: 87px 0 35px;
   padding: 0 30px;
 }
 
@@ -117,7 +122,7 @@ body {
 }
 
 .list__load {
-  height: 200px;
+  margin: 240px 0 0 0;
   color: #fff;
   text-shadow: 1px 3px 7px #065781;
   display: flex;
@@ -126,7 +131,7 @@ body {
 }
 
 .list__error {
-  height: 200px;
+  margin: 240px 0 0 0;
   color: #e77171;
   text-shadow: 1px 3px 7px #2a0101;
   display: flex;
@@ -137,15 +142,18 @@ body {
 /* страница с выбранным фильмом */
 
 .back-list {
-  position: absolute;
-  top: -20px;
-  right: 30px;
+  width: 76px;
+  height: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #4ac7e9e3;
   border: 1px solid #4ac7e9e3;
   padding: 1px 20px 5px 15px;
   border-radius: 5px;
   cursor: pointer;
   transition: 0.1s ease-out;
+  margin: 0 0 25px 0;
 }
 
 .back-list:hover {
@@ -159,7 +167,7 @@ body {
 }
 
 .item-page {
-  margin: 35px 0;
+  margin: 87px 0 35px;
   padding: 0 30px;
   position: relative;
 }
@@ -178,15 +186,188 @@ body {
 .item-page__title {
   color: #ffffffe6;
   font-size: 24px;
+  margin: 0 0 10px 0;
+}
+
+.item-page__details {
+  color: #ffffffc4;
+  font-size: 14px;
+  margin: 0 0 10px 0;
+}
+
+.item-page__genres {
+  display: flex;
+}
+
+.item-page__genres > div {
+  display: flex;
+  grid-gap: 5px;
+}
+
+.item-page__genres > span {
+  color: #ffffff80;
+  margin-right: 10px;
+}
+
+.item-page__published > span {
+  color: #ffffff80;
+  margin-right: 10px;
+}
+
+.item-page__rating {
+  color: #ffc800c4;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.item-page__rating > span {
+  color: #ffffff80;
+  margin-right: 10px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.item-page__years > span {
+  color: #ffffff80;
+  margin-right: 10px;
+}
+
+.item-page__comment > span {
+  color: #ffffff80;
+  margin-right: 10px;
 }
 
 .item-page__description {
   color: #4ac7e9e3;
-  font-size: 14px;
+  font-size: 16px;
+  padding: 0 135px 0 0;
+}
+
+.item-page__play {
+  margin: 60px auto 40px;
+  display: block;
+  width: 80%;
+  position: relative;
+}
+
+.play__wrapper {
+  width: 100%;
+}
+
+.item-page__play img {
+  width: 100%;
+  display: block;
+}
+
+.item-page__download {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.item-page__download > div {
+  background-color: #282c34e6;
+  padding: 30px 20px 40px;
+  border-radius: 20px;
+}
+
+.item-page__download-title {
+  text-align: center;
+  margin: 0 0 15px 0;
+  color: #ffffffe6;
+  font-size: 24px;
+}
+
+.item-page__download-item {
+  display: grid;
+  grid-template-columns: 100px 100px;
+  grid-gap: 20px;
+}
+
+.item-page__download-item > a {
+  padding: 5px 10px;
+  text-align: center;
+  cursor: pointer;
+  color: #52daffe3;
+  border: 1px solid #52daffe3;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: 0.1s ease-out;
+}
+
+.item-page__download-item > a:hover {
+  color: #ffffffe6;
+  box-shadow: inset 0 0 10px 3px #61dafb47;
+  transition: 0.3s ease-out;
+}
+
+/* / страница с выбранным фильмом */
+
+/* responsive */
+
+@media (max-width: 991px) {
+  .back-list {
+    position: absolute;
+    top: 0;
+    right: 30px;
+  }
+
+  .item-page__info {
+    grid-template-columns: 1fr;
+  }
+
+  .item-page__img {
+    width: 330px;
+  }
+
+  .item-page__description {
+    padding: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .item-page__play {
+    width: 100%;
+  }
+}
+
+@media (max-width: 649px) {
+  .list {
+    grid-template-columns: repeat(auto-fill, minmax(240px, auto));
+  }
+}
+
+@media (max-width: 550px) {
+  .back-list {
+    position: relative;
+    top: 0;
+    right: 0;
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 440px) {
+  .item-page__img {
+    width: 100%;
+  }
+
+  .play__wrapper {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 360px) {
+  .list {
+    padding: 0 15px;
+  }
 }
 
 
 
-
-
-/* / страница с выбранным фильмом */
+/* / responsive */

@@ -2,9 +2,6 @@ import React from "react";
 
 export const ListItem = ({ res, openItem, setOpenItem }) => {
 
-    //console.log(openItem);
-
-    //console.log(res);
     return (
 
         <>
