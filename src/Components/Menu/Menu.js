@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import dbMenu from '../DBMenu';
 import { ListItem } from './Listitem';
 import { Banner } from './Banner';
+//import { useFetch } from '../Hooks/useFetch';
+import { Context } from '../Functions/context';
 
 const MenuStyled = styled.main`
     background-color: #ccc;
@@ -14,17 +15,30 @@ const SectionMenu = styled.section`
     padding: 30px;
 `;
 
-export const Menu = ({ setOpenItem }) => (
-    <MenuStyled>
-        <Banner/>
-        <SectionMenu>
-            <h2>Бургеры</h2>
-            <ListItem itemList={dbMenu.burger} setOpenItem={setOpenItem}/>
-        </SectionMenu>
+export const Menu = () => {
 
-        <SectionMenu>
-            <h2>Закуски / Напитки</h2>
-            <ListItem itemList={dbMenu.other} setOpenItem={setOpenItem}/>
-        </SectionMenu>
-    </MenuStyled>
-);
+    //const { openItem: { setOpenItem }} = useContext(Context);
+    const { dbMenu } = useContext(Context);
+
+    return (
+        <MenuStyled>
+            <Banner/>
+            {dbMenu ? 
+            <>
+                <SectionMenu>
+                    <h2>Бургеры</h2>
+                    <ListItem itemList={dbMenu.burger} />
+                </SectionMenu>
+        
+                <SectionMenu>
+                    <h2>Закуски / Напитки</h2>
+                    <ListItem itemList={dbMenu.other} />
+                </SectionMenu>
+            </> : /*res.error ? 
+            <div>Sorry, we will fix it soon...</div> :*/
+            <div>Loading...</div>
+            }
+        </MenuStyled>
+    );
+
+};
