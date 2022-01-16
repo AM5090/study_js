@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Json",
+      "surname": "Statham",
+      "password": "1234"
+    }
+  ],
+  "contacts": [
+    {
+      "name": "Mickey Rourke",
+      "phone": "+7 999 999 99 99",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "name": "Tom Cruise",
+      "phone": "+7 999 999 99 98"
+    },
+    {
+      "id": 3,
+      "name": "Mel Gibson",
+      "phone": "+7 999 999 99 97"
+    },
+    {
+      "id": 4,
+      "name": "Arnold Schwarzenegger",
+      "phone": "+7 999 999 99 97"
+    }
+  ]
+}
