@@ -1,7 +1,11 @@
 {
-    "users": [
-        {
-            "mail": "email@my.com"
-        }
-    ]
+  "users": [
+    {
+      "id": 1,
+      "mail": "email@my.com",
+      "password": "1234",
+      "name": "J S",
+      "phone": "+7 999 999 99 99"
+    }
+  ]
 }

@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import { rootReducer } from './redux/reducer/rootReducer';
 import { Provider } from 'react-redux';
+import store from './redux/store';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'font-awesome/css/font-awesome.min.css';
 
-const store = createStore(rootReducer);
 
 ReactDOM.render(
   <React.StrictMode>

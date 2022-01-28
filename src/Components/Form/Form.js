@@ -1,4 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { checkEmail, openRegToggle, openModal } from '../../redux/authSlice';
+import { useGetFetch } from '../../Hooks/useGetFetch';
+import { LogIn } from './LogIn';
+import { Registration } from './Registration';
 import styled from 'styled-components';
 
 const ModalWrapper = styled.div`
@@ -28,116 +33,66 @@ const ModalHeader = styled.div`
 `;
 
 const ModalTitle = styled.div`
+    display: flex;
+    align-items: center;
     color: #000;
     font-size: 20px;
+    i {
+        font-size: 22px;
+        font-weight: 600;
+        margin-right: 8px;
+    }
+    div {
+        cursor: pointer;
+    }
 `;
 
 const ModalClose = styled.div`
     color: #000;
-`;
-
-const ModalForm = styled.form`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 15px 20px;
-`;
-
-const FormItem = styled.div`
-    position: relative;
-    width: 100%;
-    padding-bottom: 16px;
-`;
-
-const FormItemName = styled.p`
-    font-size: 14px;
-    color: #3f4346;
-    margin: 0 0 5px 0;
-`;
-
-const FormInput = styled.input`
-    width: 100%;
-    font-size: 18px;
-    padding: 8px 12px;
-    background-color: #e8ecf5;
-    border-radius: 4px;
-    border: 1px solid #e8ecf5;
-    color: #9296a1;
-    &:focus-visible{
-        outline: 1px solid transparent;
-        background-color: #fff;
-    }
-`;
-
-const InputError = styled.p`
-    font-size: 12px;
-    color: red;
-    margin: 0;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-`;
-
-const ModalButton = styled.button`
-    background: linear-gradient(to right, #6174d8,#8d76d8);
-    border: none;
-    color: #fff;
-    padding: 10px;
-    width: 100%;
-    border-radius: 18px;
+    font-size: 20px;
     cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    margin-top: 20px;
 `;
 
 export const Form = () => {
 
-    const [ mailValue, setMailValue ] = useState('');
-    const [response, setResponse] = useState(null);
-    const [error, setError] = useState(null);
+    const resData = useGetFetch();
+    const users = resData.response;
 
-    const handlerMail = (event) => {
-        const text = event.target.value;
-        setMailValue(text);
-    };
+    const mailAuth = useSelector(state => state.auth.mailAuth);
+    const openReg = useSelector(state => state.auth.openReg);
 
-    const userCheck = (event) => {
-        event.preventDefault();
+    const dispatch = useDispatch();
 
-        const dataFetch = async () => {
-            try {
-                const res = await fetch('http://localhost:3001/users');
-                const json = await res.json();
-                setResponse(json);
-                console.log(json);
-            } catch(err) {
-                console.error(err);
-                setError(err);
-            }
-        };
-        dataFetch();
-        
-    };
+    const backLogIn = () => {
+        dispatch(checkEmail({mailAuth: false}));
+    }
 
-    console.log(response);
-
+    const handlerModalShow = () => {
+        dispatch(openModal({modalShow: false}));
+        dispatch(checkEmail({mailAuth: false}));
+        dispatch(openRegToggle({openReg: false}));
+    }
 
     return (
         <ModalWrapper>
             <Modal>
                 <ModalHeader>
-                    <ModalTitle>Вход или регистрация</ModalTitle>
-                    <ModalClose>X</ModalClose>
+                    {mailAuth ? 
+                        <ModalTitle onClick={backLogIn}>
+                            <div>
+                                <i className="fa fa-angle-left" aria-hidden="true"></i>
+                                <span>Вход</span>
+                            </div>
+                        </ModalTitle> :
+                        openReg ? <ModalTitle>Регистрация</ModalTitle> :
+                        <ModalTitle>Вход или регистрация</ModalTitle>
+                    }
+                    <ModalClose onClick={handlerModalShow}><i className="fa fa-times" aria-hidden="true"></i></ModalClose>
                 </ModalHeader>
-                <ModalForm onSubmit={userCheck}>
-                    <FormItem>
-                        <FormItemName>Email</FormItemName>
-                        <FormInput onChange={handlerMail} value={mailValue} placeholder='Email' required/>
-                        <InputError>Error message</InputError>
-                    </FormItem>
-                    <ModalButton type='submit'>Продолжить</ModalButton>
-                </ModalForm>
+                {!openReg ? 
+                    <LogIn users={users}/> :
+                    <Registration/>
+                }
             </Modal>
         </ModalWrapper>
     );
