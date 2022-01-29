@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { checkEmail, openRegToggle } from '../../redux/authSlice';
+import { checkEmail, openRegToggle, openModal } from '../../redux/authSlice';
 import {ModalForm, FormItem, FormItemName, FormInput, InputError, ModalFooterWrapper, ModalButton, ModalFooter, ModalFooterItem, FooterItemName} from '../../ui/ui';
 
 export const LogIn = ({ users }) => {
@@ -23,6 +23,16 @@ export const LogIn = ({ users }) => {
         setPassValue(pass);
     };
 
+    const checkPass = (user) => {
+        if(user.password === passValue) {
+            dispatch(openModal({modalShow: false}));
+            dispatch(checkEmail({mailAuth: false}));
+        } else if(user.password !== passValue && passValue !== '') {
+            dispatch(checkEmail({mailAuth: false}));
+            dispatch(openRegToggle({openReg: true}));
+        }
+    }
+
     const userCheck = (event) => {
         event.preventDefault();
 
@@ -30,10 +40,12 @@ export const LogIn = ({ users }) => {
 
         if(searchUser) {
             dispatch(checkEmail({mailAuth: true}));
+            checkPass(searchUser);
         } else {
             dispatch(checkEmail({mailAuth: false}));
             dispatch(openRegToggle({openReg: true}));
         }
+
     };
 
 

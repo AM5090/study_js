@@ -1,3 +1,17 @@
+Данные указаны в json-server.
+Для запуска сервера (на 3001 порту, записано в скриптах) - npm run server
+Запуск приложения стандартно - npm start
+
+Если почта введена верно то откроется поле для ввода пароля.
+Если почта или пароль введены не верно откроется поле для регистрации.
+Если указать дааные в полях для регистрации создасться новый контакт.
+
+Первый контакт для демонстрации
+email@my.com
+1234
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
